@@ -7,8 +7,8 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
-
 echo -e "${GREEN}Starting the SETUP script..."
+swapoff /swapfile
 rm -rf /swapfile
 sed -i "s/ENABLED=1 /ENABLED=0 /g" /etc/default/motd-news
 sudo chmod -x /etc/update-motd.d/*
@@ -41,7 +41,6 @@ service vnstat restart
 apt-get upgrade -y &> /root/apt-log.txt
 clear
 source .profile
-
 # Installing xray
 apt-get -y install socat &> /root/apt-log.txt
 apt-get -y install ca-certificates &> /root/apt-log.txt
@@ -51,7 +50,8 @@ echo -e "\e[1;33m
 ░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█── 　 ░█▄▄█ ──░█── 　 ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
 echo ""
 echo "" 
-echo -e "${GREEN} Enter your domain name(Ex:something.com)?"
+echo -e "${GREEN}Enter your domain name(Ex:something.com)?"
+echo "Domain name:" 
 read domain
 clear
 wget -O acme.sh https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
