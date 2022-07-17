@@ -10,6 +10,7 @@ LIGHT='\033[0;37m'
 echo -e "${GREEN}Starting the SETUP script..."
 echo -e "${GREEN}Installing the setup packages..."
 apt-get -y install net-tools &> /root/apt-log.txt
+apt-get -y install curl &> /root/apt-log.txt
 apt-get -y install neofetch &> /root/apt-log.txt
 apt-get -y install mlocate &> /root/apt-log.txt
 apt-get -y install ncdu &> /root/apt-log.txt
