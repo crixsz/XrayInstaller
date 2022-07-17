@@ -7,5 +7,5 @@
   
 </p>
 <p align="center"><bold>Installation</bold></p>
-<pre><p>wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/setup.sh && chmod +x setup.sh && ./setup.sh<p></pre>
+<pre><p>wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/setup.sh && chmod +x setup.sh && bash setup.sh<p></pre>
 <p align="center"><bold>Additional Info</bold></p>
