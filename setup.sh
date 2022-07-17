@@ -1,3 +1,4 @@
+#!/bin/bash
 # Color
 RED='\033[0;31m'
 NC='\033[0m'
@@ -149,32 +150,6 @@ else
                     "GunService"
                 }
             }
-        },
-		{ "port": 8080, "protocol": 
-            "vmess", "settings": {
-                "clients": [ { "id": "aku"
-                    }
-                ], "decryption": "none"
-            },
-            "streamSettings": { "network": 
-                "gun", "security": "tls", 
-                "tlsSettings": {
-                    "serverName": 
-                    "fiqanet.cf", "alpn": [
-                        "h2" ], 
-                    "certificates": [
-                        { "certificateFile": 
-                            "/root/xray.crt", 
-                            "keyFile": 
-                            "/root/xray.key"
-                        }
-                    ]
-                },
-                "grpcSettings": { 
-                    "serviceName": 
-                    "GunService"
-                }
-            }
         }
     ], "outbounds": [ { "protocol": 
       "freedom", "settings": {}
@@ -219,16 +194,25 @@ else
 ' >> /usr/local/etc/xray/config.json
 		systemctl restart xray
 		clear
-		echo "Installation has been completed!!"
-		echo " "| tee -a log-install.txt
+		myip=$(curl -s icanhazip.com);
+    		echo " "| tee -a log-install.txt
 		echo "============================================================================" | tee -a log-install.txt
-		echo "" | tee -a log-install.txt
+		echo "                         INSTALLATION COMPLETED !!!                         " | tee -a log-install.txt
 		echo "----------------------------------------------------------------------------" | tee -a log-install.txt
 		echo "" | tee -a log-install.txt
-		echo "   >>> V2ray Links and Port"  | tee -a log-install.txt
-		echo "   - TrojanGRPC(8000): trojan://trojanaku@fixanet.tk:8000?mode=gun&security=tls&type=grpc&serviceName=GunService&sni=ulist.com.my#TrojanGRPC"  | tee -a log-install.txt
-		echo "   - TrojanTCP(443)  : trojan://trojanaku@fixanet.tk:443?security=tls&headerType=none&type=tcp&sni=ulist.com.my#TrojanTCP"  | tee -a log-install.txt
-		echo "   - VmessGRPC(8080) : vmess://eyJhZGQiOiJmaXFhbmV0LmNmIiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6ImFrdSIsIm5ldCI6ImdycGMiLCJwYXRoIjoiR3VuU2VydmljZSIsInBvcnQiOiI4MDgwIiwicHMiOiJWbWVzc0d1biIsInNjeSI6Im5vbmUiLCJzbmkiOiJpbS5pZ2FtZWNqLmNvbSIsInRscyI6InRscyIsInR5cGUiOiJndW4iLCJ2IjoiMiJ9"  | tee -a log-install.txt
+		echo "   >>> V2ray Links and Port                                  " | tee -a log-install.txt
+		echo "   - TrojanGRPC(8000):                                       " | tee -a log-install.txt
+    		echo "" | tee -a log-install.txt
+		echo "   trojan://trojanaku@$myip:8000?                       " | tee -a log-install.txt      
+    		echo "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a log-install.txt
+    		echo "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a log-install.txt
+    		echo "" | tee -a log-install.txt
+		echo "   - TrojanTCP(443)  :                                       " | tee -a log-install.txt
+	        echo "" | tee -a log-install.txt
+	    	echo "   trojan://trojanaku@$myip:443?                        " | tee -a log-install.txt
+	    	echo "   security=tls&headerType=none&type=tcp                     " | tee -a log-install.txt          
+	    	echo "   &sni=ulist.com.my#TrojanTCP                               " | tee -a log-install.txt
+	    	echo "" | tee -a log-install.txt
 		echo " THIS LOG FILE IS CREATED IN /root"
 	else
 		echo -e "${GREEN}Exiting script.."
