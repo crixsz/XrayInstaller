@@ -9,7 +9,6 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 echo -e "${GREEN}Starting the SETUP script..."
 echo -e "${GREEN}Installing the setup packages..."
-apt-get -y install speedtest 
 apt-get -y install net-tools &> /root/apt-log.txt
 apt-get -y install neofetch &> /root/apt-log.txt
 apt-get -y install mlocate &> /root/apt-log.txt
@@ -17,7 +16,7 @@ apt-get -y install ncdu &> /root/apt-log.txt
 apt-get -y install vnstat &> /root/apt-log.txt
 echo -e "${GREEN}Configuring profile..."
 echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
-echo "neofetch" >> .profile
+echo "neofetch" >> .profile	
 echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
 wget -q -O- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
 apt update &> /root/apt-log.txt
