@@ -8,27 +8,14 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 echo -e "${GREEN}Starting the SETUP script..."
-swapoff /swapfile
-rm -rf /swapfile
-sed -i "s/ENABLED=1 /ENABLED=0 /g" /etc/default/motd-news
-sudo chmod -x /etc/update-motd.d/*
-fallocate -l 1G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-echo -e "${GREEN}SWAP FILE HAS BEEN CREATED!" 
-swapon --show
-sleep 2
 echo -e "${GREEN}Installing the setup packages..."
+apt-get -y install speedtest 
 apt-get -y install net-tools &> /root/apt-log.txt
 apt-get -y install neofetch &> /root/apt-log.txt
 apt-get -y install mlocate &> /root/apt-log.txt
-apt-get -y install micro &> /root/apt-log.txt
 apt-get -y install ncdu &> /root/apt-log.txt
 apt-get -y install vnstat &> /root/apt-log.txt
 echo -e "${GREEN}Configuring profile..."
-sleep 2
 echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
 echo "neofetch" >> .profile
 echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
@@ -95,7 +82,6 @@ if [ -f "$XRAY" ]; then
 	rm -rf /var/log/xray
 	rm -rf /var/log/xray/access.log
 	rm -rf /var/log/xray/error.log
-	systemctl daemon-reload
 	clear
 	echo -e "${RED}Uninstalled Xray!"
 
@@ -107,8 +93,131 @@ else
 		echo -e "${GREEN}Installing Xray.."
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
 		rm -rf /usr/local/etc/xray/config.json
-		wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json  -P /usr/local/etc/xray/config.json
+		wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json  -P /usr/local/etc/xray/
+    echo '
+{ "log": 
+	{ "loglevel": "warning"
+    },
+    "inbounds": [ { "port": 443, "protocol": 
+            "trojan", "settings": {
+                "clients": [ { 
+                        "password":"trojanaku", 
+                        "email": 
+                        "love@example.com"
+                    }
+                ]
+            },
+            "streamSettings": { "network": 
+                "tcp", "security": "tls", 
+                "tlsSettings": {
+                    "alpn": [ "http/1.1" ], 
+                    "certificates": [
+                        { "certificateFile": 
+                            "/root/xray.crt", 
+                            "keyFile": 
+                            "/root/xray.key"
+                        }
+                    ]
+                }
+            }
+        },
+		{ "port": 8000, "protocol": 
+            "trojan", "settings": {
+                "clients": [ { 
+                        "password":"trojanaku", 
+                        "email": 
+                        "love@example.com"
+                    }
+                ]
+            },
+            "streamSettings": { "network": 
+                "gun", "security": "tls", 
+                "tlsSettings": {
+                    "alpn": [ "http/1.1" ], 
+                    "certificates": [
+                        { "certificateFile": 
+                            "/root/xray.crt", 
+                            "keyFile": 
+                            "/root/xray.key"
+                        }
+                    ]
+                },
+				"grpcSettings": 
+				{
+                    "serviceName": 
+                    "GunService"
+                }
+            }
+        },
+		{ "port": 8080, "protocol": 
+            "vmess", "settings": {
+                "clients": [ { "id": "aku"
+                    }
+                ], "decryption": "none"
+            },
+            "streamSettings": { "network": 
+                "gun", "security": "tls", 
+                "tlsSettings": {
+                    "serverName": 
+                    "fiqanet.cf", "alpn": [
+                        "h2" ], 
+                    "certificates": [
+                        { "certificateFile": 
+                            "/root/xray.crt", 
+                            "keyFile": 
+                            "/root/xray.key"
+                        }
+                    ]
+                },
+                "grpcSettings": { 
+                    "serviceName": 
+                    "GunService"
+                }
+            }
+        }
+    ], "outbounds": [ { "protocol": 
+      "freedom", "settings": {}
+    },
+    { "protocol": "blackhole", "settings": 
+      {}, "tag": "blocked"
+    }
+  ], "routing": { "rules": [ { "type": 
+        "field", "ip": [
+          "0.0.0.0/8", "10.0.0.0/8", 
+          "100.64.0.0/10", "169.254.0.0/16", 
+          "172.16.0.0/12", "192.0.0.0/24", 
+          "192.0.2.0/24", "192.168.0.0/16", 
+          "198.18.0.0/15", "198.51.100.0/24", 
+          "203.0.113.0/24", "::1/128", 
+          "fc00::/7", "fe80::/10"
+        ], "outboundTag": "blocked"
+      },
+      { "inboundTag": [ "api" ], 
+        "outboundTag": "api", "type": "field"
+      },
+      { "type": "field", "outboundTag": 
+        "blocked", "protocol": [
+          "bittorrent" ]
+      }
+    ]
+  },
+  "stats": {}, "api": { "services": [ 
+      "StatsService"
+    ], "tag": "api"
+  },
+  "policy": { "levels": { "0": { 
+        "statsUserDownlink": true, 
+        "statsUserUplink": true
+      }
+    },
+    "system": { "statsInboundUplink": true, 
+      "statsInboundDownlink": true
+    }
+  }
+}
+' >> /usr/local/etc/xray/config.json
 		systemctl restart xray
+		clear
 		echo "Installation has been completed!!"
 		echo " "| tee -a log-install.txt
 		echo "============================================================================" | tee -a log-install.txt
@@ -123,7 +232,8 @@ else
 	else
 		echo -e "${GREEN}Exiting script.."
 		sleep 2
-		clear		
+		clear
+	fi
 fi
 
 
