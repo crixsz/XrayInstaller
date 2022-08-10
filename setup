@@ -49,7 +49,8 @@ echo -e "${GREEN}Checking for installed X-ray...."
 sleep 2
 clear
 XRAY=/etc/systemd/system/xray.service
-if [ -f "$XRAY" ]; then
+if [ -f "$XRAY" ]
+then
 	echo -e "${LIGHT}!! Xray has been installed !!"
 	echo ""
 	echo -e "${RED}Uninstalling Xray...."
@@ -76,7 +77,6 @@ if [ -f "$XRAY" ]; then
 	rm -rf /var/log/xray/error.log
 	clear
 	echo -e "${RED}Uninstalled Xray!"
-
 else
 	echo -e "${GREEN}Do you want to install Xray"
 	echo -e "${GREEN}yes OR no(y/n)?"
