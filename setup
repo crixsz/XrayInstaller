@@ -66,8 +66,8 @@ else
   echo "" 
   echo -e "Do you want to install XRAY (trojanGRPC and trojanTCP)(y/n)?"
   read ans
-	if [ $ans == "y" ]; 
-  then
+if [ $ans == "y" ]; 
+then
     echo -e "Enter your domain name(Ex:something.com)?"
     echo -n "Domain name: "
     read domain 
@@ -202,7 +202,7 @@ else
 		echo -e "   &sni=ulist.com.my#TrojanTCP                               " | tee -a /root/log-install.txt
 		echo -e "" | tee -a /root/log-install.txt
 		echo -e "${LIGHT}THIS INSTALLATION LOG WILL BE SAVED AT /root/"
-  else
+else
     echo -e "${RED}Installation has been cancelled!!"
 fi
 
