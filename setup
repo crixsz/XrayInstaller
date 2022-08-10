@@ -44,10 +44,6 @@ cd .acme.sh
 bash acme.sh --register-account -m kimochilol@gmail.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /root/xray.crt --keypath /root/xray.key
-echo -e "${CYAN}||	SUCCESS !! 	||"
-echo -e "${GREEN}Your key path is : /root/xray.key"
-echo -e "${GREEN}Your cert path is : /root/xray.crt"
-sleep 5
 clear
 echo -e "${GREEN}Checking for installed X-ray...."
 sleep 2
@@ -89,7 +85,6 @@ else
 		echo -e "${GREEN}Installing Xray.."
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
 		rm -rf /usr/local/etc/xray/config.json
-		wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json  -P /usr/local/etc/xray/
     echo '
 { "log": 
 	{ "loglevel": "warning"
@@ -189,25 +184,27 @@ else
 		systemctl restart xray
 		clear
 		myip=$(curl -s icanhazip.com);
-		echo -e " "| tee -a log-install.txt
-		echo -e "${LIGHT}============================================================================" | tee -a log-install.txt
-		echo -e "${ORANGE}                         !! INSTALLATION COMPLETED !!!                         " | tee -a log-install.txt
-		echo -e "${LIGHT}----------------------------------------------------------------------------" | tee -a log-install.txt
-		echo -e "" | tee -a log-install.txt
-		echo -e "${PURPLE}>>> Trojan Links and Port                                  " | tee -a log-install.txt
-		echo -e "${LIGHT}- TrojanGRPC(8000):                                       " | tee -a log-install.txt
-    	echo -e "" | tee -a log-install.txt
-		echo -e "   trojan://trojanaku@$myip:8000?                       " | tee -a log-install.txt      
-    	echo -e "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a log-install.txt
-    	echo -e "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a log-install.txt
-    	echo -e "" | tee -a log-install.txt
-		echo -e "${LIGHT}- TrojanTCP(443)  :                                       " | tee -a log-install.txt
-		echo -e "" | tee -a log-install.txt
-		echo -e "   trojan://trojanaku@$myip:443?                        " | tee -a log-install.txt
-		echo -e "   security=tls&headerType=none&type=tcp                     " | tee -a log-install.txt          
-		echo -e "   &sni=ulist.com.my#TrojanTCP                               " | tee -a log-install.txt
-		echo -e "" | tee -a log-install.txt
+		echo -e " "| tee -a /root/log-install.txt
+		echo -e "${LIGHT}============================================================================" | tee -a /root/log-install.txt
+		echo -e "${ORANGE}                         !! INSTALLATION COMPLETED !!!                         " | tee -a /root/log-install.txt
+		echo -e "${LIGHT}----------------------------------------------------------------------------" | tee -a /root/log-install.txt
+		echo -e "" | tee -a /root/log-install.txt
+		echo -e "${PURPLE}>>> Trojan Links and Port                                  " | tee -a /root/log-install.txt
+		echo -e "${LIGHT}- TrojanGRPC(8000):                                       " | tee -a /root/log-install.txt
+    	echo -e "" | tee -a /root/log-install.txt
+		echo -e "   trojan://trojanaku@$myip:8000?                       " | tee -a /root/log-install.txt      
+    	echo -e "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a /root/log-install.txt
+    	echo -e "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a /root/log-install.txt
+    	echo -e "" | tee -a /root/log-install.txt
+		echo -e "${LIGHT}- TrojanTCP(443)  :                                       " | tee -a /root/log-install.txt
+		echo -e "" | tee -a /root/log-install.txt
+		echo -e "   trojan://trojanaku@$myip:443?                        " | tee -a /root/log-install.txt
+		echo -e "   security=tls&headerType=none&type=tcp                     " | tee -a /root/log-install.txt          
+		echo -e "   &sni=ulist.com.my#TrojanTCP                               " | tee -a /root/log-install.txt
+		echo -e "" | tee -a /root/log-install.txt
 		echo -e "${LIGHT} THIS LOG FILE IS CREATED IN /root"
+
+sleep 5
 	else
 		echo -e "${GREEN}Exiting script.."
 		sleep 2
