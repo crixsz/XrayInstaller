@@ -11,56 +11,10 @@ LIGHT='\033[0;37m'
 echo -e "${GREEN}Starting the SETUP script..."
 echo -e "${GREEN}Installing the setup packages..."
 echo -e "${GREEN}Checking for initial setup..."
-if grep -q neofetch ".profile"; then
-  sed -e s/neofetch//g -i *
-  main
-else
-  main
-
-main()
-{
-apt-get install -y net-tools
-apt-get install -y curl
-apt-get install -y neofetch
-apt-get install -y mlocate
-apt-get install -y ncdu
-apt-get install -y vnstat
-clear
-echo -e "${GREEN}Configuring profile..."
-echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
-echo "neofetch" >> .profile	
-service vnstat restart
-apt-get upgrade -y 
-clear
-source .profile
-# Installing xray
-apt-get install -y socat 
-apt-get install -y  ca-certificates 
-echo -e "\e[1;33m
-░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ░█──░█ 　 ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
-─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█── 　 ░█▀▀▄ ░█▄▄▄█ 　 ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
-░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█── 　 ░█▄▄█ ──░█── 　 ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
-echo ""
-echo "" 
-echo -e "${GREEN}Enter your domain name(Ex:something.com)?"
-echo "Domain name:" 
-read domain
-clear
-wget -O acme.sh https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
-bash acme.sh --install
-rm acme.sh
-cd .acme.sh
-bash acme.sh --register-account -m kimochilol@gmail.com
-bash acme.sh --issue --standalone -d $domain --force
-bash acme.sh --installcert -d $domain --fullchainpath /root/xray.crt --keypath /root/xray.key
-clear
-echo -e "${GREEN}Checking for installed X-ray...."
-sleep 2
-clear
 XRAY=/etc/systemd/system/xray.service
 if [ -f "$XRAY" ]
 then
-	echo -e "${LIGHT}!! Xray has been installed !!"
+  echo -e "${LIGHT}!!ERROR!! Xray has been installed !!"
 	echo ""
 	echo -e "${RED}Uninstalling Xray...."
 	sleep 3
@@ -86,21 +40,60 @@ then
 	rm -rf /var/log/xray/error.log
 	clear
 	echo -e "${RED}Uninstalled Xray!"
+  mainsetup
   installxray
 else
+  mainsetup
 	installxray
 fi
+
+mainsetup()
+{
+  apt-get update -y
+  apt-get install -y net-tools
+  apt-get install -y curl
+  apt-get install -y neofetch
+  apt-get install -y mlocate
+  apt-get install -y ncdu
+  apt-get install -y socat 
+  apt-get install -y  ca-certificates 
+  apt-get install -y vnstat
+  clear
+  echo -e "${GREEN}Configuring profile for PORTS and NEOFETCH..."
+  echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
+  service vnstat restart
+  clear
+  source .profile
 }
 installxray()
 {
-echo -e "${GREEN}Do you want to install Xray"
-	echo -e "${GREEN}yes OR no(y/n)?"
-	read ans
-	if [ $ans == "y" ]; then
-		echo -e "${GREEN}Installing Xray.."
+  echo -e "\e[1;33m
+  ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ░█──░█ 　 ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
+  ─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█── 　 ░█▀▀▄ ░█▄▄▄█ 　 ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
+  ░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█── 　 ░█▄▄█ ──░█── 　 ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
+  echo ""
+  echo "" 
+  echo -e "Do you want to install XRAY(trojanGRPC and trojanTCP)(y/n)?"
+  read ans
+	if [ $ans == "y" ]; 
+  then
+    echo -e "Enter your domain name(Ex:something.com)?"
+    echo -n "Domain name: "
+    read domain 
+    clear
+    echo -e "Generating cert for Xray...."
+    wget -O acme.sh https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
+    bash acme.sh --install
+    rm acme.sh
+    cd .acme.sh
+    bash acme.sh --register-account -m mymail@gmail.com
+    bash acme.sh --issue --standalone -d $domain --force
+    bash acme.sh --installcert -d $domain --fullchainpath /root/xray.crt --keypath /root/xray.key
+    clear
+    echo -e "${GREEN}Installing Xray.."
+    rm -rf /usr/local/etc/xray/config.json
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
-		rm -rf /usr/local/etc/xray/config.json
-    echo '
+		echo '
 { "log": 
 	{ "loglevel": "warning"
     },
@@ -206,24 +199,19 @@ echo -e "${GREEN}Do you want to install Xray"
 		echo -e "" | tee -a /root/log-install.txt
 		echo -e "${PURPLE}>>> Trojan Links and Port                                  " | tee -a /root/log-install.txt
 		echo -e "${LIGHT}- TrojanGRPC(8000):                                       " | tee -a /root/log-install.txt
-    	echo -e "" | tee -a /root/log-install.txt
+    echo -e "" | tee -a /root/log-install.txt
 		echo -e "   trojan://trojanaku@$myip:8000?                       " | tee -a /root/log-install.txt      
-    	echo -e "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a /root/log-install.txt
-    	echo -e "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a /root/log-install.txt
-    	echo -e "" | tee -a /root/log-install.txt
+    echo -e "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a /root/log-install.txt
+    echo -e "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a /root/log-install.txt
+    echo -e "" | tee -a /root/log-install.txt
 		echo -e "${LIGHT}- TrojanTCP(443)  :                                       " | tee -a /root/log-install.txt
 		echo -e "" | tee -a /root/log-install.txt
 		echo -e "   trojan://trojanaku@$myip:443?                        " | tee -a /root/log-install.txt
 		echo -e "   security=tls&headerType=none&type=tcp                     " | tee -a /root/log-install.txt          
 		echo -e "   &sni=ulist.com.my#TrojanTCP                               " | tee -a /root/log-install.txt
 		echo -e "" | tee -a /root/log-install.txt
-		echo -e "${LIGHT} THIS LOG FILE IS CREATED IN /root"
-
-sleep 5
-	else
-		echo -e "${GREEN}Exiting script.."
-		sleep 2
-		clear
-	fi
+		echo -e "${LIGHT}THIS INSTALLATION LOG WILL BE SAVED AT /root/"
+  else
+    echo -e "${RED}Installation has been cancelled!!"
 }
-fi
+
