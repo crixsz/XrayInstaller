@@ -8,10 +8,12 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
-
-echo -e "${GREEN}Starting the Xray setup script..."
-echo -e "${GREEN}Installing the setup packages..."
-echo -e "${GREEN}Checking for initial setup..."
+echo -e "${ORANGE} ===================================="
+echo -e "${ORANGE}       Xray installation process     "
+echo -e "${ORANGE} ===================================="
+echo -e "${GREEN}  Starting the Xray setup script..."
+echo -e "${GREEN}  Installing the setup packages..."
+echo -e "${GREEN}  Checking for initial setup..."
 XRAY=/etc/systemd/system/xray.service
 if [ -f "$XRAY" ]
 then
@@ -65,6 +67,7 @@ else
   echo ""
   echo "" 
   echo -e "Do you want to install XRAY (trojanGRPC and trojanTCP)(y/n)?"
+  echo ""
   read ans
 fi
 if [ $ans == "y" ]; 
