@@ -48,7 +48,7 @@ clear
 echo -e "${GREEN}Checking for installed X-ray...."
 sleep 2
 clear
-XRAY=/usr/local/etc/xray
+XRAY=/etc/systemd/system/xray.service
 if [ -f "$XRAY" ]; then
 	echo -e "${LIGHT}!! Xray has been installed !!"
 	echo ""
