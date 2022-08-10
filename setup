@@ -66,6 +66,7 @@ else
   echo "" 
   echo -e "Do you want to install XRAY (trojanGRPC and trojanTCP)(y/n)?"
   read ans
+fi
 if [ $ans == "y" ]; 
 then
     echo -e "Enter your domain name(Ex:something.com)?"
