@@ -8,16 +8,18 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
-main()
-{
- echo -e "${GREEN}Starting the SETUP script..."
+echo -e "${GREEN}Starting the SETUP script..."
 echo -e "${GREEN}Installing the setup packages..."
 echo -e "${GREEN}Checking for initial setup..."
 if grep -q neofetch ".profile"; then
   sed -e s/neofetch//g -i *
   main
 else
-  apt-get install -y net-tools
+  main
+
+main()
+{
+apt-get install -y net-tools
 apt-get install -y curl
 apt-get install -y neofetch
 apt-get install -y mlocate
@@ -88,8 +90,7 @@ then
 else
 	installxray
 fi
-
-# install xray function
+}
 installxray()
 {
 echo -e "${GREEN}Do you want to install Xray"
@@ -226,5 +227,3 @@ sleep 5
 	fi
 }
 fi
-
-}
