@@ -1,5 +1,5 @@
 #!/bin/bash
-# Color
+#Color
 RED='\033[0;31m'
 NC='\033[0m'
 GREEN='\033[0;32m'
@@ -8,22 +8,21 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
-rm -rf .profile
 echo -e "${GREEN}Starting the SETUP script..."
 echo -e "${GREEN}Installing the setup packages..."
-sudo apt-get -y install net-tools
-sudo apt-get -y install curl
-sudo apt-get -y install neofetch
-sudo apt-get -y install mlocate
-sudo apt-get -y install ncdu
-sudo apt-get -y install vnstat
+apt-get install -y net-tools
+apt-get install -y curl
+apt-get install -y neofetch
+apt-get install -y mlocate
+apt-get install -y ncdu
+apt-get install -y vnstat
 echo -e "${GREEN}Configuring profile..."
 echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
 echo "neofetch" >> .profile	
 echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
 wget -q -O- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
 apt update
-apt-get -y install webmin 
+apt-get install -y webmin 
 sed -i "s/ssl=1/ssl=0/g" /etc/webmin/miniserv.conf
 service webmin restart
 service vnstat restart
@@ -31,8 +30,8 @@ apt-get upgrade -y
 clear
 source .profile
 # Installing xray
-sudo apt-get -y install socat 
-sudo apt-get -y install ca-certificates 
+apt-get install -y socat 
+apt-get install -y  ca-certificates 
 echo -e "\e[1;33m
 ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ░█──░█ 　 ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
 ─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█── 　 ░█▀▀▄ ░█▄▄▄█ 　 ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
