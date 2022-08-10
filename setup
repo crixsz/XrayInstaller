@@ -11,9 +11,9 @@ LIGHT='\033[0;37m'
 echo -e "${ORANGE} ===================================="
 echo -e "${ORANGE}       Xray installation process     "
 echo -e "${ORANGE} ===================================="
-echo -e "${GREEN}  Starting the Xray setup script..."
-echo -e "${GREEN}  Installing the setup packages..."
-echo -e "${GREEN}  Checking for initial setup..."
+echo -e "${GREEN}Starting the Xray setup script..."
+echo -e "${GREEN}Installing the setup packages..."
+echo -e "${GREEN}Checking for initial setup..."
 XRAY=/etc/systemd/system/xray.service
 if [ -f "$XRAY" ]
 then
@@ -45,17 +45,18 @@ then
 	echo -e "${RED}Uninstalled Xray!"
   ./setup
 else
-  apt-get update -y
-  apt-get install -y net-tools
-  apt-get install -y curl
-  apt-get install -y neofetch
-  apt-get install -y mlocate
-  apt-get install -y ncdu
-  apt-get install -y socat 
-  apt-get install -y  ca-certificates 
-  apt-get install -y vnstat
+  apt-get update -y >> /dev/null
+  apt-get install -y net-tools >> /dev/null
+  apt-get install -y curl >> /dev/null
+  apt-get install -y neofetch >> /dev/null
+  apt-get install -y mlocate >> /dev/null
+  apt-get install -y ncdu >> /dev/null
+  apt-get install -y socat >> /dev/null
+  apt-get install -y  ca-certificates >> /dev/null
+  apt-get install -y vnstat >> /dev/null
   clear
   echo -e "${GREEN}Configuring profile for alias PORTS..."
+  sleep 3
   echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
   service vnstat restart
   clear
@@ -208,6 +209,8 @@ then
 		echo -e "${LIGHT}THIS INSTALLATION LOG WILL BE SAVED AT /root/"
 else
     echo -e "${RED}Installation has been cancelled!!"
+    sleep 3
+    clear
 fi
 
 
