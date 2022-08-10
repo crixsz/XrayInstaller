@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 #Color
 RED='\033[0;31m'
 NC='\033[0m'
@@ -16,15 +16,10 @@ apt-get install -y neofetch
 apt-get install -y mlocate
 apt-get install -y ncdu
 apt-get install -y vnstat
+clear
 echo -e "${GREEN}Configuring profile..."
 echo "alias ports='netstat -tulpn | grep LISTEN'" >> .profile
 echo "neofetch" >> .profile	
-echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
-wget -q -O- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
-apt update
-apt-get install -y webmin 
-sed -i "s/ssl=1/ssl=0/g" /etc/webmin/miniserv.conf
-service webmin restart
 service vnstat restart
 apt-get upgrade -y 
 clear
@@ -194,25 +189,25 @@ else
 		systemctl restart xray
 		clear
 		myip=$(curl -s icanhazip.com);
-    		echo " "| tee -a log-install.txt
-		echo "============================================================================" | tee -a log-install.txt
-		echo "                         INSTALLATION COMPLETED !!!                         " | tee -a log-install.txt
-		echo "----------------------------------------------------------------------------" | tee -a log-install.txt
-		echo "" | tee -a log-install.txt
-		echo "   >>> V2ray Links and Port                                  " | tee -a log-install.txt
-		echo "   - TrojanGRPC(8000):                                       " | tee -a log-install.txt
-    		echo "" | tee -a log-install.txt
-		echo "   trojan://trojanaku@$myip:8000?                       " | tee -a log-install.txt      
-    		echo "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a log-install.txt
-    		echo "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a log-install.txt
-    		echo "" | tee -a log-install.txt
-		echo "   - TrojanTCP(443)  :                                       " | tee -a log-install.txt
-	        echo "" | tee -a log-install.txt
-	    	echo "   trojan://trojanaku@$myip:443?                        " | tee -a log-install.txt
-	    	echo "   security=tls&headerType=none&type=tcp                     " | tee -a log-install.txt          
-	    	echo "   &sni=ulist.com.my#TrojanTCP                               " | tee -a log-install.txt
-	    	echo "" | tee -a log-install.txt
-		echo " THIS LOG FILE IS CREATED IN /root"
+		echo -e " "| tee -a log-install.txt
+		echo -e "${LIGHT}============================================================================" | tee -a log-install.txt
+		echo -e "${ORANGE}                         !! INSTALLATION COMPLETED !!!                         " | tee -a log-install.txt
+		echo -e "${LIGHT}----------------------------------------------------------------------------" | tee -a log-install.txt
+		echo -e "" | tee -a log-install.txt
+		echo -e "${PURPLE}>>> Trojan Links and Port                                  " | tee -a log-install.txt
+		echo -e "${LIGHT}- TrojanGRPC(8000):                                       " | tee -a log-install.txt
+    	echo -e "" | tee -a log-install.txt
+		echo -e "   trojan://trojanaku@$myip:8000?                       " | tee -a log-install.txt      
+    	echo -e "   mode=gun&security=tls&type=grpc&serviceName=GunService    " | tee -a log-install.txt
+    	echo -e "   &sni=ulist.com.my#TrojanGRPC                              " | tee -a log-install.txt
+    	echo -e "" | tee -a log-install.txt
+		echo -e "${LIGHT}- TrojanTCP(443)  :                                       " | tee -a log-install.txt
+		echo -e "" | tee -a log-install.txt
+		echo -e "   trojan://trojanaku@$myip:443?                        " | tee -a log-install.txt
+		echo -e "   security=tls&headerType=none&type=tcp                     " | tee -a log-install.txt          
+		echo -e "   &sni=ulist.com.my#TrojanTCP                               " | tee -a log-install.txt
+		echo -e "" | tee -a log-install.txt
+		echo -e "${LIGHT} THIS LOG FILE IS CREATED IN /root"
 	else
 		echo -e "${GREEN}Exiting script.."
 		sleep 2
