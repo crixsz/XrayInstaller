@@ -10,7 +10,7 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 #Functions
 
-mainsetup() {
+function mainsetup() {
   apt-get update -y
   apt-get install -y net-tools
   apt-get install -y curl
@@ -27,7 +27,7 @@ mainsetup() {
   clear
   source .profile
 }
-installxray() {
+function installxray() {
   echo -e "\e[1;33m
   ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ░█──░█ 　 ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
   ─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█── 　 ░█▀▀▄ ░█▄▄▄█ 　 ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
@@ -54,7 +54,7 @@ installxray() {
     echo -e "${GREEN}Installing Xray.."
     rm -rf /usr/local/etc/xray/config.json
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
-		echo '
+		echo -e '
 { "log": 
 	{ "loglevel": "warning"
     },
