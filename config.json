@@ -1,119 +1,193 @@
-{ "log": 
-	{ "loglevel": "warning"
+
+{
+    "log": {
+        "loglevel": "warning"
     },
-    "inbounds": [ { "port": 443, "protocol": 
-            "trojan", "settings": {
-                "clients": [ { 
-                        "password":"trojanaku", 
-                        "email": 
-                        "love@example.com"
+    "inbounds": [
+        {
+            "port": 8080,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password":"trojanaku",
+                        "email": "love@example.com"
                     }
                 ]
             },
-            "streamSettings": { "network": 
-                "tcp", "security": "tls", 
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
                 "tlsSettings": {
-                    "alpn": [ "http/1.1" ], 
+                    "alpn": [
+                        "http/1.1"
+                    ],
                     "certificates": [
-                        { "certificateFile": 
-                            "/root/xray.crt", 
-                            "keyFile": 
-                            "/root/xray.key"
+                        {
+                            "certificateFile": "/root/xray.crt",
+                            "keyFile": "/root/xray.key"
                         }
                     ]
                 }
             }
         },
-		{ "port": 8000, "protocol": 
-            "trojan", "settings": {
-                "clients": [ { 
-                        "password":"trojanaku", 
-                        "email": 
-                        "love@example.com"
+    {
+            "port": 8000,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password":"trojanaku",
+                        "email": "love@example.com"
                     }
                 ]
             },
-            "streamSettings": { "network": 
-                "gun", "security": "tls", 
+            "streamSettings": {
+                "network": "gun",
+                "security": "tls",
                 "tlsSettings": {
-                    "alpn": [ "http/1.1" ], 
+                    "alpn": [
+                        "http/1.1"
+                    ],
                     "certificates": [
-                        { "certificateFile": 
-                            "/root/xray.crt", 
-                            "keyFile": 
-                            "/root/xray.key"
+                        {
+                            "certificateFile": "/root/xray.crt",
+                            "keyFile": "/root/xray.key"
                         }
                     ]
                 },
-				"grpcSettings": 
-				{
-                    "serviceName": 
-                    "GunService"
+        "grpcSettings": {
+                    "serviceName": "GunService"
                 }
             }
         },
-		{ "port": 8080, "protocol": 
-            "vmess", "settings": {
-                "clients": [ { "id": "aku"
-                    }
-                ], "decryption": "none"
-            },
-            "streamSettings": { "network": 
-                "gun", "security": "tls", 
-                "tlsSettings": {
-                    "serverName": 
-                    "fiqanet.cf", "alpn": [
-                        "h2" ], 
-                    "certificates": [
-                        { "certificateFile": 
-                            "/root/xray.crt", 
-                            "keyFile": 
-                            "/root/xray.key"
-                        }
-                    ]
-                },
-                "grpcSettings": { 
-                    "serviceName": 
-                    "GunService"
-                }
-            }
+        {
+  "port": 443,
+  "protocol": "vless",
+  "tag":"VLESSTCP",
+  "settings": {
+    "clients": [
+     {
+        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
+        "add":"fixanet.tk",
+        "flow":"xtls-rprx-direct",
+        "email": "fixanet.tk_VLESS_XTLS/TLS-direct_TCP"
+      }
+    ],
+    "decryption": "none",
+    "fallbacks": [
+        {"dest":31296,"xver":1},{"alpn":"h2","dest":31302,"xver":0},{"path":"/v2rayws","dest":31297,"xver":1},{"path":"/v2rayvws","dest":31299,"xver":1}
+    ]
+  },
+  "streamSettings": {
+    "network": "tcp",
+    "security": "xtls",
+    "xtlsSettings": {
+      "minVersion": "1.2",
+      "alpn": [
+        "http/1.1",
+        "h2"
+      ],
+      "certificates": [
+        {
+          "certificateFile": "/root/xray.crt",
+          "keyFile": "/root/xray.key",
+          "ocspStapling": 3600,
+          "usage":"encipherment"
         }
-    ], "outbounds": [ { "protocol": 
-      "freedom", "settings": {}
-    },
-    { "protocol": "blackhole", "settings": 
-      {}, "tag": "blocked"
+      ]
     }
-  ], "routing": { "rules": [ { "type": 
-        "field", "ip": [
-          "0.0.0.0/8", "10.0.0.0/8", 
-          "100.64.0.0/10", "169.254.0.0/16", 
-          "172.16.0.0/12", "192.0.0.0/24", 
-          "192.0.2.0/24", "192.168.0.0/16", 
-          "198.18.0.0/15", "198.51.100.0/24", 
-          "203.0.113.0/24", "::1/128", 
-          "fc00::/7", "fe80::/10"
-        ], "outboundTag": "blocked"
+  }
+},
+{
+  "port": 31297,
+  "listen": "127.0.0.1",
+  "protocol": "vless",
+  "tag":"VLESSWS",
+  "settings": {
+    "clients": [
+      {
+        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
+        "email": "fiqanet.tk_VLESS_WS"
+      }
+    ],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "none",
+    "wsSettings": {
+      "acceptProxyProtocol": true,
+      "path": "/v2rayws"
+    }
+  }
+}
+    ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "0.0.0.0/8",
+          "10.0.0.0/8",
+          "100.64.0.0/10",
+          "169.254.0.0/16",
+          "172.16.0.0/12",
+          "192.0.0.0/24",
+          "192.0.2.0/24",
+          "192.168.0.0/16",
+          "198.18.0.0/15",
+          "198.51.100.0/24",
+          "203.0.113.0/24",
+          "::1/128",
+          "fc00::/7",
+          "fe80::/10"
+        ],
+        "outboundTag": "blocked"
       },
-      { "inboundTag": [ "api" ], 
-        "outboundTag": "api", "type": "field"
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
       },
-      { "type": "field", "outboundTag": 
-        "blocked", "protocol": [
-          "bittorrent" ]
+      {
+        "type": "field",
+        "outboundTag": "blocked",
+        "protocol": [
+          "bittorrent"
+        ]
       }
     ]
   },
-  "stats": {}, "api": { "services": [ 
+  "stats": {},
+  "api": {
+    "services": [
       "StatsService"
-    ], "tag": "api"
+    ],
+    "tag": "api"
   },
-  "policy": { "levels": { "0": { 
-        "statsUserDownlink": true, 
+  "policy": {
+    "levels": {
+      "0": {
+        "statsUserDownlink": true,
         "statsUserUplink": true
       }
     },
-    "system": { "statsInboundUplink": true, 
+    "system": {
+      "statsInboundUplink": true,
       "statsInboundDownlink": true
     }
   }
