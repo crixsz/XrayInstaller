@@ -1,9 +1,9 @@
 # XrayInstaller
 ## !! Use this script on a freshly deployed VPS 
-**[DEBIAN 10 (BUSTER) ONLY]**
+**[Ubuntu 20.04 (LTS) ONLY]**
 <h3 align="center">Supported Linux Distribution</h3>
 <p align="center">
-  <a><img src="https://img.shields.io/badge/Support-Debian-red.svg"></a>
+  <a><img src="https://img.shields.io/badge/Support-Ubuntu-red.svg"></a>
   
 </p>
 <p align="center"><bold>Installation</bold></p>
