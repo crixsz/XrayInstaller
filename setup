@@ -69,7 +69,7 @@ else
   ░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█── 　 ░█▄▄█ ──░█── 　 ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
   echo ""
   echo "" 
-  echo -e "Do you want to install XRAY (trojanGRPC and trojanTCP)(y/n)?"
+  echo -e "Do you want to install XRAY(y/n)?"
   echo ""
   read ans
 if [ $ans == "y" ]; 
