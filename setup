@@ -43,6 +43,7 @@ then
 	rm -rf /var/log/xray
 	rm -rf /var/log/xray/access.log
 	rm -rf /var/log/xray/error.log
+  systemctl daemon-reload
 	clear
 	echo -e "${RED}Uninstalled Xray!"
   ./setup
@@ -64,9 +65,9 @@ else
   clear
   source .profile
   echo -e "\e[1;33m
-  ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ░█──░█ 　 ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
-  ─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█── 　 ░█▀▀▄ ░█▄▄▄█ 　 ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
-  ░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█── 　 ░█▄▄█ ──░█── 　 ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
+  ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ▀▀█▀▀  ░█▀▀█ ░█──░█  ░█▀▀▀ ▀█▀ ░█▀▀█ ─█▀▀█ ▀█▀ 
+  ─▀▀▀▄▄ ░█─── ░█▄▄▀ ░█─ ░█▄▄█ ─░█──  ░█▀▀▄ ░█▄▄▄█  ░█▀▀▀ ░█─ ░█─░█ ░█▄▄█ ░█─ 
+  ░█▄▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█─── ─░█──  ░█▄▄█ ──░█──  ░█─── ▄█▄ ─▀▀█▄ ░█─░█ ▄█▄\e[0m"
   echo ""
   echo "" 
   echo -e "Do you want to install XRAY(y/n)?"
@@ -88,6 +89,8 @@ then
     bash acme.sh --installcert -d $domain --fullchainpath /root/xray.crt --keypath /root/xray.key
     clear
     echo -e "${GREEN}Installing Xray.."
+    sleep 5
+    clear
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
     rm -rf /usr/local/etc/xray/config.json
     wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json && mv config.json /usr/local/etc/xray/
