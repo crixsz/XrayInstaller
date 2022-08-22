@@ -88,9 +88,9 @@ then
     bash acme.sh --installcert -d $domain --fullchainpath /root/xray.crt --keypath /root/xray.key
     clear
     echo -e "${GREEN}Installing Xray.."
-    rm -rf /usr/local/etc/xray/config.json
 		bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
-    wget -O https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json && mv config.json /usr/local/etc/xray/
+    rm -rf /usr/local/etc/xray/config.json
+    wget https://raw.githubusercontent.com/crixsz/XrayInstaller/main/config.json && mv config.json /usr/local/etc/xray/
 		systemctl restart xray
 		clear
     echo -e "${GREEN}Xray has been installed"
