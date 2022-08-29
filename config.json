@@ -69,9 +69,7 @@
     "clients": [
      {
         "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
-        "add":"fixanet.tk",
         "flow":"xtls-rprx-direct",
-        "email": "fixanet.tk_VLESS_XTLS/TLS-direct_TCP"
       }
     ],
     "decryption": "none",
@@ -108,7 +106,6 @@
     "clients": [
       {
         "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
-        "email": "fiqanet.tk_VLESS_WS"
       }
     ],
     "decryption": "none"
