@@ -69,7 +69,7 @@
     "clients": [
      {
         "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
-        "flow":"xtls-rprx-direct",
+        "flow":"xtls-rprx-direct"
       }
     ],
     "decryption": "none",
@@ -105,7 +105,7 @@
   "settings": {
     "clients": [
       {
-        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
+        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b"
       }
     ],
     "decryption": "none"
