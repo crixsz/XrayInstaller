@@ -1,0 +1,156 @@
+{
+  "log": {
+    "access": "/var/log/xray/access5.log",
+    "error": "/var/log/xray/error.log",
+    "loglevel": "info"
+       },
+    "inbounds": [
+      {
+            "port": 8080,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password":"trojanaku"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/root/xray.crt",
+                            "keyFile": "/root/xray.key"
+                        }
+                    ]
+                }
+            }
+        },
+    {
+            "port": 8000,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password":"trojanaku"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "gun",
+                "security": "tls",
+                "tlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/root/xray.crt",
+                            "keyFile": "/root/xray.key"
+                        }
+                    ]
+                },
+        "grpcSettings": {
+                    "serviceName": "GunService"
+                }
+            }
+        },
+        {
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
+                        "flow": "xtls-rprx-direct",
+                        "level": 0,
+                        "email": ""
+                    }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "path": "/vlessws",
+                        "dest": 1312,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojanws",
+                        "dest": 1313,
+                        "xver": 1
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "xtls",
+                "xtlsSettings": {
+                    "alpn": [
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/root/xray.crt",
+                            "keyFile": "/root/xray.key"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+      "port": 1313,
+      "listen": "127.0.0.1",
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "password": "trojanaku",
+            "level": 0,
+            "email": ""
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings":
+            {
+              "acceptProxyProtocol": true,
+              "path": "/trojanws"
+            }
+      }
+    },
+    {
+  "port": 1312,
+  "listen": "127.0.0.1",
+  "protocol": "vless",
+  "settings": {
+    "clients": [
+      {
+        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
+        "email": ""
+      }
+    ],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "ws",
+    "security": "none",
+    "wsSettings": {
+      "acceptProxyProtocol": true,
+      "path": "/vlessws"
+    }
+  }
+}
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ]
+}
