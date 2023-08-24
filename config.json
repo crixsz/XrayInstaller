@@ -75,11 +75,6 @@
                 "decryption": "none",
                 "fallbacks": [
                     {
-                        "path": "/vlessws",
-                        "dest": 1312,
-                        "xver": 1
-                    },
-                    {
                         "path": "/trojanws",
                         "dest": 1313,
                         "xver": 1
@@ -124,29 +119,7 @@
               "path": "/trojanws"
             }
       }
-    },
-    {
-  "port": 1312,
-  "listen": "127.0.0.1",
-  "protocol": "vless",
-  "settings": {
-    "clients": [
-      {
-        "id": "ffb363b1-6db4-4ad7-b749-0689a87af06b",
-        "email": ""
-      }
-    ],
-    "decryption": "none"
-  },
-  "streamSettings": {
-    "network": "ws",
-    "security": "none",
-    "wsSettings": {
-      "acceptProxyProtocol": true,
-      "path": "/vlessws"
     }
-  }
-}
     ],
     "outbounds": [
         {
