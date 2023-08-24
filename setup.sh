@@ -51,8 +51,6 @@ else
   apt-get update -y >> /dev/null
   apt-get install -y net-tools >> /dev/null
   apt-get install -y curl >> /dev/null
-  apt-get install -y neofetch >> /dev/null
-  apt-get install -y mlocate >> /dev/null
   apt-get install -y ncdu >> /dev/null
   apt-get install -y socat >> /dev/null
   apt-get install -y  ca-certificates >> /dev/null
